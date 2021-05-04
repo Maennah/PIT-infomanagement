@@ -1,0 +1,17 @@
+CREATE DATABASE hotelreservation;
+
+CUSTOMER TABLE
+CREATE TABLE `hotelreservation`.`customer` ( `Cid` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'Customer ID' , `Fname` VARCHAR(50) NOT NULL COMMENT 'First Name' , `FMname` VARCHAR(50) NOT NULL COMMENT 'Family Name' , `Gender` CHAR(1) NOT NULL COMMENT 'Gender' , `Address` VARCHAR(100) NOT NULL COMMENT 'Address' , `Country` VARCHAR(50) NOT NULL COMMENT 'Country' , `Institution` VARCHAR(100) NOT NULL COMMENT 'Institution' , `Phone` INT(12) NOT NULL COMMENT 'Phone' , `Fax` INT(9) NOT NULL COMMENT 'Fax' , `Email` VARCHAR(50) NOT NULL COMMENT 'Email' , PRIMARY KEY (`Cid`)) ENGINE = InnoDB;
+
+INVOICE TABLE
+CREATE TABLE `hotelreservation`.`invoice` ( `In_id` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'Invoice ID' , `Room_rate` FLOAT NOT NULL COMMENT 'Room rate per night' , `NumRooms` INT NOT NULL COMMENT 'No. of Rooms' , `NumNights` INT NOT NULL COMMENT 'No. of Nights' , `NumBf` INT NOT NULL COMMENT 'No. of Breakfast' , `TotalAmount` FLOAT NOT NULL COMMENT 'Total Amount' , `T_id` INT(4) NOT NULL COMMENT 'Transaction ID' , PRIMARY KEY (`In_id`)) ENGINE = InnoDB;
+INVOICE FOREIGN KEY
+ALTER TABLE `invoice` ADD CONSTRAINT `FK_TransactionID` FOREIGN KEY (`T_id`) REFERENCES `transaction`(`T_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+TRANSACTION TABLE
+CREATE TABLE `hotelreservation`.`transaction` ( `T_id` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'Transaction ID' , `Type_payment` VARCHAR(50) NOT NULL COMMENT 'Type of Payment' , `Credit_card` VARCHAR(50) NOT NULL COMMENT 'Credit Card' , `Card_holder` VARCHAR(50) NOT NULL COMMENT 'Card Holder' , `Card_no` INT(12) NOT NULL COMMENT 'Card No.' , `Expiry_date` DATE NOT NULL COMMENT 'Expiry date' , PRIMARY KEY (`T_id`)) ENGINE = InnoDB;
+
+ACCOMODATION TABLE
+CREATE TABLE `hotelreservation`.`accommodation` ( `Acc_no` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'Accommodation No.' , `First_choice` VARCHAR(50) NOT NULL COMMENT '1st Choice of Hotel' , `Sec_choice` VARCHAR(50) NOT NULL COMMENT '2nd Choice of Hotel' , `Check_in` DATE NOT NULL COMMENT 'Check in' , `Check_out` DATE NOT NULL COMMENT 'Check out' , `No_nights` INT NOT NULL COMMENT 'No. of nights' , PRIMARY KEY (`Acc_no`)) ENGINE = InnoDB;
+
+ROOM TABLE
+CREATE TABLE `hotelreservation`.`room` ( `room_id` INT NOT NULL COMMENT 'Room ID' , `room_shared` VARCHAR(50) NOT NULL COMMENT 'Room shared with (Name)' , `room_type` VARCHAR(50) NOT NULL COMMENT 'Room Type' , `breakfast` VARCHAR(50) NOT NULL COMMENT 'Breakfast' , PRIMARY KEY (`room_id`)) ENGINE = InnoDB;
